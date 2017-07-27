@@ -1,13 +1,14 @@
-var startOfWeek = require('date-fns/src/start_of_week');
-var startOfMonth = require('date-fns/src/start_of_month');
-var endOfWeek = require('date-fns/src/end_of_week');
-var endOfMonth = require('date-fns/src/end_of_month');
-var endOfWeek = require('date-fns/src/end_of_week');
-var addDays = require('date-fns/src/add_days');
-var eachDay = require('date-fns/src/each_day');
-var weekData = require('./week_data');
-var isSameMonth = require('date-fns/src/is_same_month');
-var isWithinRange = require('date-fns/is_within_range')
+
+var startOfWeek = require('date-fns/start_of_week');
+var startOfMonth = require('date-fns/start_of_month');
+var endOfWeek = require('date-fns/end_of_week');
+var endOfMonth = require('date-fns/end_of_month');
+var endOfWeek = require('date-fns/end_of_week');
+var addDays = require('date-fns/add_days');
+var eachDay = require('date-fns/each_day');
+var weekData = require('calendar-fns/src//week_data');
+var isSameMonth = require('date-fns/is_same_month');
+var isAfter = require('date-fns/is_after')
 
 var MAX_NUMBER_OF_WEEKS = 6;
 
@@ -18,18 +19,19 @@ var MAX_NUMBER_OF_WEEKS = 6;
  */
 var monthData = function(dirtyDate, weekStartsAt) {
   var date = new Date(dirtyDate);
-  var startDate = startOfWeek(startOfMonth(date), weekStartsAt);
-  var endDate = endOfWeek(endOfMonth(date), weekStartsAt);
+  var startDate = startOfWeek(startOfMonth(date), {weekStartsOn: weekStartsAt});
+  var endDate = endOfWeek(endOfMonth(date), {weekStartsOn: weekStartsAt});
   var month = [];
-  var weekIndex, week, startOfWeekDate, endOfWeekDate;
+  var weekIndex, week, startOfWeekDate;
 
   for (weekIndex = 0; weekIndex < MAX_NUMBER_OF_WEEKS; weekIndex++) {
     startOfWeekDate = addDays(startDate, weekIndex * 7);
-    endOfWeekDate = addDays(startOfWeekDate, 6);
-    if (!isWithinRange(endDate, startOfWeekDate, endOfWeekDate)
+    if (isAfter(startOfWeekDate, endDate)) {
+        break;
+    }
     week = weekData(startOfWeekDate, weekStartsAt).map(
       function(dayData) {
-        dayData.isDummy = !isSameMonth(date, dayData.date);
+        dayData.isSameMonth = isSameMonth(date, dayData.date);
         return dayData;
       }
     );
@@ -39,6 +41,4 @@ var monthData = function(dirtyDate, weekStartsAt) {
 
   return month;
 };
-
-module.exports = monthData;
-
+console.log(monthData('2017-07-01', 1))
