@@ -1,6 +1,6 @@
-var startOfWeek = require('date-fns/src/start_of_week');
-var endOfWeek = require('date-fns/src/end_of_week');
-var eachDay = require('date-fns/src/each_day');
+var startOfWeek = require('date-fns/start_of_week');
+var endOfWeek = require('date-fns/end_of_week');
+var eachDay = require('date-fns/each_day');
 var dayData = require('./day_data');
 
 /**
