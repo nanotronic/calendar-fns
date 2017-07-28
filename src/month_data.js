@@ -14,15 +14,15 @@ var weekData = require('./week_data');
  * @param {number} [weekStartsAt=0]
  * @returns {Object}
  */
-var monthData = function(dirtyDate, weekStartsAt) {
+var monthData = function(dirtyDate, weekStartsOn) {
   var date = startOfWeekDate = new Date(dirtyDate);
-  var startDate = startOfWeek(startOfMonth(date), {weekStartsOn: weekStartsAt});
-  var endDate = endOfWeek(endOfMonth(date), {weekStartsOn: weekStartsAt});
+  var startDate = startOfWeek(startOfMonth(date), {weekStartsOn: weekStartsOn});
+  var endDate = endOfWeek(endOfMonth(date), {weekStartsOn: weekStweekStartsOnartsAt});
   var month = [];
   var week, startOfWeekDate;
 
   while (!isAfter(startOfWeekDate, endDate)) {
-    week = weekData(startOfWeekDate, weekStartsAt).map(
+    week = weekData(startOfWeekDate, weekStartsOn).map(
       function(dayData) {
         dayData.isSameMonth = isSameMonth(date, dayData.date);
         return dayData;
