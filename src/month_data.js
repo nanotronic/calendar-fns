@@ -15,11 +15,11 @@ var weekData = require('./week_data');
  * @returns {Object}
  */
 var monthData = function(dirtyDate, weekStartsOn) {
-  var date = startOfWeekDate = new Date(dirtyDate);
-  var startDate = startOfWeek(startOfMonth(date), {weekStartsOn: weekStartsOn});
+  var date = new Date(dirtyDate);
+  var startDate = startOfWeekDate = startOfWeek(startOfMonth(date), {weekStartsOn: weekStartsOn});
   var endDate = endOfWeek(endOfMonth(date), {weekStartsOn: weekStartsOn});
   var month = [];
-  var week, startOfWeekDate;
+  var week;
 
   while (!isAfter(startOfWeekDate, endDate)) {
     week = weekData(startOfWeekDate, weekStartsOn).map(
