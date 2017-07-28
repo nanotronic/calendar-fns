@@ -8,10 +8,10 @@ var dayData = require('./day_data');
  * @param {number} [weekStartsAt=0]
  * @returns {Object}
  */
-var weekData = function(date, weekStartsAt) {
+var weekData = function(date, weekStartsOn) {
   weekStartsAt = weekStartsAt || 0;
-  var start = startOfWeek(date, weekStartsAt);
-  var end = endOfWeek(date, weekStartsAt);
+  var start = startOfWeek(date, {weekStartsOn: weekStartsOn});
+  var end = endOfWeek(date, {weekStartsOn: weekStartsOn});
   return eachDay(start, end).map(dayData);
 };
 
