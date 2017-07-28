@@ -17,7 +17,7 @@ var weekData = require('./week_data');
 var monthData = function(dirtyDate, weekStartsOn) {
   var date = startOfWeekDate = new Date(dirtyDate);
   var startDate = startOfWeek(startOfMonth(date), {weekStartsOn: weekStartsOn});
-  var endDate = endOfWeek(endOfMonth(date), {weekStartsOn: weekStweekStartsOnartsAt});
+  var endDate = endOfWeek(endOfMonth(date), {weekStartsOn: weekStartsOn});
   var month = [];
   var week, startOfWeekDate;
 
